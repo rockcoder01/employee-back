@@ -2,73 +2,48 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="employee_report" pageWidth="595" pageHeight="842" columnCount="1" uuid="9b5a7c9e-96fa-44d3-8b0e-89d7b37fe58b">
+              name="DepartmentReport" pageWidth="595" pageHeight="842" columnCount="1">
 
-    <parameter name="ReportTitle" class="java.lang.String"/>
-
+    <parameter name="departmentName" class="java.lang.String"/>
+    <parameter name="departmentLocation" class="java.lang.String"/>
     <field name="id" class="java.lang.Long"/>
-    <field name="employees[0].name" class="java.lang.String"/>
-    <field name="employees[0].position" class="java.lang.String"/>
-    <field name="employees[0].email" class="java.lang.String"/>
-    <field name="employees[0].salary" class="java.lang.Double"/>
+    <field name="name" class="java.lang.String"/>
+    <field name="position" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="salary" class="java.lang.Double"/>
 
     <title>
-        <band height="50">
+        <band height="60">
             <textField>
-                <reportElement x="0" y="0" width="500" height="30"/>
-                <textFieldExpression><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+                <reportElement x="0" y="0" width="200" height="30"/>
+                <textFieldExpression><![CDATA[$P{departmentName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="30" width="200" height="30"/>
+                <textFieldExpression><![CDATA[$P{departmentLocation}]]></textFieldExpression>
             </textField>
         </band>
     </title>
 
-    <columnHeader>
-        <band height="20">
-            <textField>
-                <reportElement x="0" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA["Name"]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="100" y="0" width="150" height="20"/>
-                <textFieldExpression><![CDATA["Email"]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="250" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA["Position"]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="350" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA["Salary"]]></textFieldExpression>
-            </textField>
-        </band>
-    </columnHeader>
-
     <detail>
         <band height="20">
             <textField>
-                <reportElement x="0" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employees[0].name}]]></textFieldExpression>
+                <reportElement x="0" y="0" width="200" height="20"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="100" y="0" width="150" height="20"/>
-                <textFieldExpression><![CDATA[$F{employees[0].email}]]></textFieldExpression>
+                <reportElement x="200" y="0" width="200" height="20"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="250" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employees[0].position}]]></textFieldExpression>
+                <reportElement x="400" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{position}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="350" y="0" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employees[0].salary}]]></textFieldExpression>
+                <reportElement x="500" y="0" width="95" height="20"/>
+                <textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
 
-    <pageFooter>
-        <band height="20">
-            <textField>
-                <reportElement x="0" y="0" width="500" height="20"/>
-                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
 </jasperReport>
