@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/reports")
 public class ReportGenerateController {
@@ -21,7 +23,7 @@ public class ReportGenerateController {
         try {
             employeeReportService.generateEmployeeReport();
             return ResponseEntity.ok("Employee report generated successfully.");
-        } catch (JRException e) {
+        } catch (JRException | IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating report." + e.getMessage());
         }
     }

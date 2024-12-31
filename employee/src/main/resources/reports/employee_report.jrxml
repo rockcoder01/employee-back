@@ -1,83 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
-                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="employee_report"
-              language="java"
-              pageWidth="595"
-              pageHeight="842">
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="employee_report" pageWidth="595" pageHeight="842" columnCount="1" uuid="9b5a7c9e-96fa-44d3-8b0e-89d7b37fe58b">
 
-    <!-- Department Group Header -->
-    <group name="departmentGroup">
-        <groupExpression><![CDATA[$F{department.name}]]></groupExpression>
-        <groupHeader>
-            <band height="50">
-                <staticText>
-                    <reportElement x="10" y="10" width="200" height="30"/>
-                    <textElement>
-                        <font size="14" isBold="true"/>
-                    </textElement>
-                    <text><![CDATA[Department: ]]></text>
-                </staticText>
-                <textField>
-                    <reportElement x="120" y="10" width="200" height="30"/>
-                    <textFieldExpression><![CDATA[$F{department.name}]]></textFieldExpression>
-                </textField>
-                <staticText>
-                    <reportElement x="10" y="40" width="200" height="30"/>
-                    <text><![CDATA[Location: ]]></text>
-                </staticText>
-                <textField>
-                    <reportElement x="120" y="40" width="200" height="30"/>
-                    <textFieldExpression><![CDATA[$F{department.location}]]></textFieldExpression>
-                </textField>
-            </band>
-        </groupHeader>
+    <parameter name="ReportTitle" class="java.lang.String"/>
 
-        <!-- Group Footer: Forces a Page Break after each Department -->
-        <groupFooter>
-            <band height="1">
-                <printWhenExpression><![CDATA[true]]></printWhenExpression>
-            </band>
-        </groupFooter>
-    </group>
+    <field name="id" class="java.lang.Long"/>
+    <field name="employees[0].name" class="java.lang.String"/>
+    <field name="employees[0].position" class="java.lang.String"/>
+    <field name="employees[0].email" class="java.lang.String"/>
+    <field name="employees[0].salary" class="java.lang.Double"/>
 
-    <!-- Employee Section (Nested within Department) -->
+    <title>
+        <band height="50">
+            <textField>
+                <reportElement x="0" y="0" width="500" height="30"/>
+                <textFieldExpression><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA["Name"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA["Email"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA["Position"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA["Salary"]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnHeader>
+
     <detail>
-        <band height="30">
+        <band height="20">
             <textField>
-                <reportElement x="10" y="10" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employee.name}]]></textFieldExpression>
+                <reportElement x="0" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{employees[0].name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="120" y="10" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employee.position}]]></textFieldExpression>
+                <reportElement x="100" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$F{employees[0].email}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="230" y="10" width="100" height="20"/>
-                <textFieldExpression><![CDATA[$F{employee.salary}]]></textFieldExpression>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{employees[0].position}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{employees[0].salary}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
 
-    <!-- Page Footer -->
     <pageFooter>
-        <band height="50">
-            <staticText>
-                <reportElement x="10" y="10" width="200" height="30"/>
-                <text><![CDATA[Page Footer]]></text>
-            </staticText>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="500" height="20"/>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
         </band>
     </pageFooter>
-
-    <!-- Summary Section -->
-    <summary>
-        <band height="50">
-            <staticText>
-                <reportElement x="10" y="10" width="200" height="30"/>
-                <text><![CDATA[Summary Information]]></text>
-            </staticText>
-        </band>
-    </summary>
-
 </jasperReport>
