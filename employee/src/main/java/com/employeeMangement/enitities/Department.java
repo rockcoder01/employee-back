@@ -21,7 +21,7 @@ public class Department {
     private String name;
     private String location;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Employee> employees;
 }

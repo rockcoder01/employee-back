@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +23,7 @@ public class ReportGenerateService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public void generateEmployeeReport(Long id) throws JRException, IOException {
+    public byte[] generateEmployeeReport(Long id) throws JRException, IOException {
         Optional<Department> departmentOptional  = departmentRepository.findById(id);
         if (!departmentOptional.isPresent()) {
             throw new RuntimeException("Department not found with ID: " + id);
@@ -38,21 +39,20 @@ public class ReportGenerateService {
         ClassPathResource reportResource = new ClassPathResource("reports/employee_report.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(reportResource.getInputStream());
 
-//        ClassPathResource subReportResource = new ClassPathResource("reports/employee_subreport.jrxml");
-//        JasperReport subReport = JasperCompileManager.compileReport(subReportResource.getInputStream());
-
-
         // Set parameters
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("ReportTitle", department.getName() + "department Report");
-        // Prepare parameters
+
         parameters.put("departmentName", department.getName());
         parameters.put("departmentLocation", department.getLocation());
         parameters.put("departmentList", departmentList);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
-        // Export the report to a byte array
-         JasperExportManager.exportReportToPdfFile(jasperPrint, "employee_report.pdf");
+//         JasperExportManager.exportReportToPdfFile(jasperPrint, "employee_report.pdf");
+        // Export the report to a byte array (PDF format in this case)
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, byteArrayOutputStream);
+
+        return byteArrayOutputStream.toByteArray();
     }
 }
